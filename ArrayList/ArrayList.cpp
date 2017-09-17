@@ -47,11 +47,15 @@ void ArrayList<T>::checkArray(int elementsToAdd)
     {
         T * oldArray = array;
         
-        array = new T[totalSize + increment];
-        std::cout << "Increasing size from:" << totalSize << " to: " << totalSize + increment << std::endl;
+        T * newArray = new T[totalSize + increment];
+        memcpy(newArray, oldArray, sizeof(T) * currentSize);
+        
+        array = newArray;
         totalSize += increment;
         
-        memcpy(array, oldArray, sizeof(T) * currentSize);
+        delete oldArray;
+        
+        std::cout << "Increasing size from:" << totalSize - increment << " to: " << totalSize << std::endl;
     }
 }
 
